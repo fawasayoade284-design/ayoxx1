@@ -1,184 +1,195 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 export default function Home() {
-  const [clicks, setClicks] = useState(0);
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  // Load clicks from browser
-  useEffect(() => {
-    const saved = localStorage.getItem("clicks");
-    if (saved) setClicks(Number(saved));
-  }, []);
-
-  const trackClick = (name: string) => {
-    const newCount = clicks + 1;
-    setClicks(newCount);
-    localStorage.setItem("clicks", String(newCount));
-    console.log("Clicked:", name);
-  };
-
-  const saveEmail = () => {
-    if (!email.includes("@")) {
-      setMessage("Enter a valid email");
-      return;
-    }
-
-    const list = JSON.parse(localStorage.getItem("emails") || "[]");
-    list.push(email);
-    localStorage.setItem("emails", JSON.stringify(list));
-
-    setMessage("🔥 You're on the VIP list!");
-    setEmail("");
-  };
-
   return (
-    <main style={styles.body}>
-      {/* GOOGLE ANALYTICS */}
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-      ></script>
+    <main style={styles.page}>
 
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX');
-          `,
-        }}
-      />
+      {/* NAVBAR */}
+      <nav style={styles.nav}>
+        <div style={styles.logo}>AYFASCO</div>
 
-      <header style={styles.header}>
-        <h1>🔥 Ayoxx Hub</h1>
-        <p>Music • Vibes • Money System</p>
-      </header>
+        <div style={styles.navLinks}>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#links">Links</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
 
-      {/* MAIN BUTTONS */}
-      <a
-        href="https://audiomack.com/ayfasco"
-        target="_blank"
-        onClick={() => trackClick("audiomack")}
-        style={{ ...styles.btn, background: "#ff4d00" }}
-      >
-        🎵 Listen on Audiomack
-      </a>
-
-      <a
-        href="https://tiktok.com/@ayfascoyen"
-        target="_blank"
-        onClick={() => trackClick("tiktok")}
-        style={{ ...styles.btn, background: "#25f4ee", color: "black" }}
-      >
-        🎥 Follow on TikTok
-      </a>
-
-      <a
-        href="#email"
-        onClick={() => trackClick("vip")}
-        style={{ ...styles.btn, background: "#22c55e" }}
-      >
-        🚀 Join VIP List
-      </a>
-
-      {/* STATS */}
-      <div style={styles.card}>
-        <h3>📊 Live Click Stats</h3>
-        <p>
-          Total Clicks: <b>{clicks}</b>
+      {/* HERO SECTION */}
+      <section id="home" style={styles.hero}>
+        <h1 style={styles.title}>Ayfasco Website</h1>
+        <p style={styles.subtitle}>
+          A modern music & creator platform built for growth, reach, and global visibility.
         </p>
-      </div>
 
-      {/* EMAIL CAPTURE */}
-      <div id="email" style={styles.card}>
-        <h3>📩 VIP Email List</h3>
-        <p>Get updates before everyone else</p>
+        <div style={styles.ctaRow}>
+          <a
+            href="https://audiomack.com/ayfasco"
+            target="_blank"
+            style={{ ...styles.button, background: "#ff4d00" }}
+          >
+            🎵 Listen on Audiomack
+          </a>
 
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter email"
-          style={styles.input}
-        />
+          <a
+            href="https://tiktok.com/@ayfascoyen"
+            target="_blank"
+            style={{ ...styles.button, background: "#25f4ee", color: "black" }}
+          >
+            🎥 Follow on TikTok
+          </a>
+        </div>
+      </section>
 
-        <button onClick={saveEmail} style={styles.button}>
-          Join Now
-        </button>
-
-        <p>{message}</p>
-      </div>
-
-      {/* ADS SECTION */}
-      <div style={styles.card}>
-        <h3>💰 Monetization Zone</h3>
-        <p>Ad space ready for approval</p>
-        <p style={{ color: "#888" }}>
-          (Google AdSense will appear here when approved)
+      {/* ABOUT SECTION */}
+      <section id="about" style={styles.section}>
+        <h2>About</h2>
+        <p style={styles.text}>
+          Ayfasco Website is a digital hub for music distribution, audience engagement,
+          and content visibility. Built with modern web technologies for speed, scale,
+          and performance.
         </p>
-      </div>
+      </section>
 
+      {/* LINKS SECTION */}
+      <section id="links" style={styles.section}>
+        <h2>Official Links</h2>
+
+        <div style={styles.linkGrid}>
+          <a href="https://audiomack.com/ayfasco" target="_blank" style={styles.card}>
+            🎧 Audiomack Profile
+          </a>
+
+          <a href="https://tiktok.com/@ayfascoyen" target="_blank" style={styles.card}>
+            📱 TikTok Profile
+          </a>
+
+          <a href="mailto:business@ayfasco.com" style={styles.card}>
+            📩 Business Contact
+          </a>
+        </div>
+      </section>
+
+      {/* MONETIZATION READY SECTION (REALISTIC) */}
+      <section style={styles.section}>
+        <h2>Partnership & Advertising</h2>
+        <p style={styles.text}>
+          This platform supports advertising integrations and brand collaborations.
+        </p>
+
+        <div style={styles.adBox}>
+          Advertisement placements are available for approved networks such as
+          Google AdSense.
+        </div>
+      </section>
+
+      {/* FOOTER */}
       <footer style={styles.footer}>
-        © 2026 Ayoxx Hub | Built for Growth & Monetization
+        © {new Date().getFullYear()} Ayfasco Website. All rights reserved.
       </footer>
+
     </main>
   );
 }
 
 const styles: any = {
-  body: {
+  page: {
     fontFamily: "Arial",
-    background: "black",
+    background: "#0b0b0f",
     color: "white",
+    minHeight: "100vh",
+  },
+
+  nav: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "20px 40px",
+    borderBottom: "1px solid #222",
+  },
+
+  logo: {
+    fontWeight: "bold",
+    fontSize: "20px",
+    letterSpacing: "2px",
+  },
+
+  navLinks: {
+    display: "flex",
+    gap: "20px",
+  },
+
+  hero: {
     textAlign: "center",
-    padding: "20px",
+    padding: "80px 20px",
   },
-  header: {
-    padding: "30px 10px",
+
+  title: {
+    fontSize: "48px",
+    marginBottom: "10px",
   },
-  btn: {
-    display: "block",
-    margin: "10px auto",
-    padding: "15px",
-    width: "85%",
-    maxWidth: "350px",
+
+  subtitle: {
+    color: "#aaa",
+    maxWidth: "600px",
+    margin: "0 auto 30px",
+  },
+
+  ctaRow: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "15px",
+    flexWrap: "wrap",
+  },
+
+  button: {
+    padding: "15px 20px",
     borderRadius: "10px",
-    color: "white",
     textDecoration: "none",
     fontWeight: "bold",
+    color: "white",
   },
+
+  section: {
+    padding: "60px 20px",
+    maxWidth: "900px",
+    margin: "0 auto",
+    textAlign: "center",
+  },
+
+  text: {
+    color: "#aaa",
+    lineHeight: "1.6",
+  },
+
+  linkGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+    gap: "15px",
+    marginTop: "20px",
+  },
+
   card: {
+    background: "#15151c",
+    padding: "20px",
+    borderRadius: "12px",
+    textDecoration: "none",
+    color: "white",
+    border: "1px solid #222",
+  },
+
+  adBox: {
     marginTop: "20px",
     padding: "20px",
-    background: "#111",
+    border: "1px dashed #444",
+    color: "#777",
     borderRadius: "10px",
-    maxWidth: "600px",
-    marginLeft: "auto",
-    marginRight: "auto",
   },
-  input: {
-    padding: "12px",
-    width: "80%",
-    borderRadius: "8px",
-    border: "none",
-    marginTop: "10px",
-  },
-  button: {
-    marginTop: "10px",
-    padding: "10px 20px",
-    background: "#22c55e",
-    border: "none",
-    borderRadius: "8px",
-    color: "white",
-    fontWeight: "bold",
-    cursor: "pointer",
-  },
+
   footer: {
-    marginTop: "40px",
+    textAlign: "center",
+    padding: "30px",
+    borderTop: "1px solid #222",
     color: "#666",
-    fontSize: "12px",
   },
 };
