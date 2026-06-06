@@ -1,0 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+export default function Admin() {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("track") || "[]");
+    setData(stored);
+  }, []);
+
+  return (
+    <main style={{ padding: 30, fontFamily: "Arial" }}>
+      <h1>📊 Dashboard</h1>
+
+      <p>Total Events: {data.length}</p>
+
+      {data.map((d, i) => (
+        <div key={i} style={{ padding: 10, borderBottom: "1px solid #ddd" }}>
+          {d.source}
+        </div>
+      ))}
+    </main>
+  );
+}
