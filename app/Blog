@@ -1,0 +1,25 @@
+export default function Blog() {
+  const posts = [
+    {
+      title: "Welcome to Ayfasco",
+      content: "Official music and creator platform is now live."
+    },
+    {
+      title: "New Growth System",
+      content: "We are building a viral content system for creators."
+    }
+  ];
+
+  return (
+    <main style={{ padding: 30, fontFamily: "Arial" }}>
+      <h1>📰 Blog</h1>
+
+      {posts.map((p, i) => (
+        <div key={i} style={{ marginTop: 20 }}>
+          <h2>{p.title}</h2>
+          <p>{p.content}</p>
+        </div>
+      ))}
+    </main>
+  );
+}
